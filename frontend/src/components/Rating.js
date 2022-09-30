@@ -57,7 +57,7 @@ function Rating(props) {
           }
         />
       </span>
-      <spand> {numReviews} Reviews</spand>
+      <span> {numReviews} Reviews</span>
     </div>
   );
 }
