@@ -13,18 +13,20 @@ import { useContext } from 'react';
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
   const signoutHandler = () => {
-    ctxDispatch({type: 'USER_SIGNOUT' });
-    localStorage.removeItem('userInfo')
-    localStorage.removeItem('shippingAdress')
-
-  }
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAdress');
+    localStorage.removeItem('paymentMethod');
+  };
 
   return (
     <BrowserRouter>
@@ -54,13 +56,19 @@ function App() {
                       <NavDropdown.Item>Order History</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
-                    <Link className="dropdown-item" to="#signout" onClick={signoutHandler}>Sign Out</Link>
+                    <Link
+                      className="dropdown-item"
+                      to="#signout"
+                      onClick={signoutHandler}
+                    >
+                      Sign Out
+                    </Link>
                   </NavDropdown>
-                ): 
-                (<Link className="nav-link" to="/signin">Sign in</Link>)
-                
-                }
-
+                ) : (
+                  <Link className="nav-link" to="/signin">
+                    Sign in
+                  </Link>
+                )}
               </Nav>
             </Container>
           </Navbar>
@@ -71,7 +79,12 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />}></Route>
               <Route path="/cart" element={<CartScreen />}></Route>
               <Route path="/signin" element={<SigninScreen />}></Route>
-              <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
+              <Route path="/signup" element={<SignupScreen />}></Route>
+              <Route
+                path="/shipping"
+                element={<ShippingAddressScreen />}
+              ></Route>
+              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
               <Route path="/" element={<HomeScreen />}></Route>
             </Routes>
           </Container>
