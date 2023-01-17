@@ -1,15 +1,16 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import seedRouter from './routes/seedRoutes.js';
-import productRouter from './routes/productRoutes.js';
-import userRouter from './routes/userRoutes.js';
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import seedRouter from "./routes/seedRoutes.js";
+import productRouter from "./routes/productRoutes.js";
+import userRouter from "./routes/userRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
 
 dotenv.config();
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
-  console.error('MONGODB_URI is not defined in .env file');
+  console.error("MONGODB_URI is not defined in .env file");
   process.exit(1);
 }
 
@@ -17,7 +18,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose
   .connect(uri, options)
   .then(() => {
-    console.log('connected to db');
+    console.log("connected to db");
   })
   .catch((err) => {
     console.log(err.message);
@@ -29,9 +30,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/seed', seedRouter);
-app.use('/api/products', productRouter);
-app.use('/api/users', userRouter);
+app.get("/api/keys/paypal", (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || "sb");
+});
+
+app.use("/api/seed", seedRouter);
+app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

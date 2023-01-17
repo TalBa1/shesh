@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Store } from '../Store';
-import CheckoutSteps from '../components/CheckoutSteps';
+import React, { useContext, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Store } from "../Store";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -15,43 +15,43 @@ export default function ShippingAddressScreen() {
     cart: { shippingAddress },
   } = state;
 
-  const [fullName, setFullName] = useState(shippingAddress.fullName || '');
-  const [address, setAddress] = useState(shippingAddress.address || '');
-  const [city, setCity] = useState(shippingAddress.city || '');
-  const [postalcode, setPostalcode] = useState(
-    shippingAddress.postalcode || ''
+  const [fullName, setFullName] = useState(shippingAddress.fullName || "");
+  const [address, setAddress] = useState(shippingAddress.address || "");
+  const [city, setCity] = useState(shippingAddress.city || "");
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ""
   );
-  const [country, setCountry] = useState(shippingAddress.country || '');
+  const [country, setCountry] = useState(shippingAddress.country || "");
 
   useEffect(() => {
     if (!userInfo) {
-      navigate('/signin?redirect=/shipping');
+      navigate("/signin?redirect=/shipping");
     }
   }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
-      type: 'SAVE_SHIPPING_ADDRESS',
+      type: "SAVE_SHIPPING_ADDRESS",
       payload: {
         fullName,
         address,
         city,
-        postalcode,
+        postalCode,
         country,
       },
     });
     localStorage.setItem(
-      'shippingAddress',
+      "shippingAddress",
       JSON.stringify({
         fullName,
         address,
         city,
-        postalcode,
+        postalCode,
         country,
       })
     );
-    navigate('/payment');
+    navigate("/payment");
   };
 
   return (
@@ -88,11 +88,11 @@ export default function ShippingAddressScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="postalcode">
+          <Form.Group className="mb-3" controlId="postalCode">
             <Form.Label>Postal Code</Form.Label>
             <Form.Control
-              value={postalcode}
-              onChange={(e) => setPostalcode(e.target.value)}
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
               required
             />
           </Form.Group>

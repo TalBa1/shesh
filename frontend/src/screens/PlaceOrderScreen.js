@@ -1,24 +1,26 @@
-import React, { useContext, useEffect, useReducer } from 'react';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getError } from '../utils';
-import { Store } from '../Store';
-import CheckoutSteps from '../components/CheckoutSteps';
+import Axios from "axios";
+import React, { useContext, useEffect, useReducer } from "react";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+import { Helmet } from "react-helmet-async";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getError } from "../utils";
+import { Store } from "../Store";
+import CheckoutSteps from "../components/CheckoutSteps";
+import LoadingBox from "../components/LoadingBox.js";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'CREATE_REQUEST':
+    case "CREATE_REQUEST":
       return { ...state, loading: true };
-    case 'CREATE_SUCCESS':
-      return { ...state, loading: true };
-    case 'CREATE_FAIL':
-      return { ...state, loading: true };
+    case "CREATE_SUCCESS":
+      return { ...state, loading: false };
+    case "CREATE_FAIL":
+      return { ...state, loading: false };
     default:
       return state;
   }
@@ -27,9 +29,8 @@ const reducer = (state, action) => {
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
 
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
+  const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
-    error: '',
   });
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -46,9 +47,10 @@ export default function PlaceOrderScreen() {
 
   const placeOrderHandler = async () => {
     try {
-      dispatch({ type: 'CREATE_REQUEST' });
-      const { data } = await axios.post(
-        '/api/orders',
+      dispatch({ type: "CREATE_REQUEST" });
+
+      const { data } = await Axios.post(
+        "/api/orders",
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
@@ -64,15 +66,19 @@ export default function PlaceOrderScreen() {
           },
         }
       );
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
+      navigate(`/order/${data.order._id}`);
     } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
+      dispatch({ type: "CREATE_FAIL" });
       toast.error(getError(err));
     }
   };
 
   useEffect(() => {
     if (!cart.paymentMethod) {
-      navigate('/payment');
+      navigate("/payment");
     }
   }, [cart, navigate]);
   return (
@@ -90,8 +96,8 @@ export default function PlaceOrderScreen() {
               <Card.Text>
                 <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
                 <strong>Address:</strong> {cart.shippingAddress.address},
-                {cart.shippingAddress.city}
-                {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
+                {cart.shippingAddress.city},{cart.shippingAddress.postalCode},
+                {cart.shippingAddress.country}
               </Card.Text>
               <Link to="/shipping">Edit</Link>
             </Card.Body>
@@ -117,7 +123,7 @@ export default function PlaceOrderScreen() {
                           src={item.image}
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
-                        ></img>{' '}
+                        ></img>{" "}
                         <Link to={`/product/${item.slug}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
@@ -172,6 +178,7 @@ export default function PlaceOrderScreen() {
                         Place Order
                       </Button>
                     </div>
+                    {loading && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
                 </ListGroup.Item>
               </ListGroup>
