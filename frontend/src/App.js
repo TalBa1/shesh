@@ -49,7 +49,6 @@ function App() {
     };
     fetchCategories();
   }, []);
-
   return (
     <BrowserRouter>
       <div
@@ -69,9 +68,7 @@ function App() {
               >
                 <i className="fas fa-bars"></i>
               </Button>
-              <LinkContainer
-                to={{ pathname: "/search", search: "category=Pants" }}
-              >
+              <LinkContainer to="/">
                 <Navbar.Brand>Amazona</Navbar.Brand>
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -116,7 +113,7 @@ function App() {
           className={
             sidebarIsOpen
               ? "active-nav side-navbar d-flex justify-content-between flex-wrap flex-column"
-              : "side-navbar d-flex justify-content-between flex-wrap flex-column"
+              : "side-navbar d-flex justify-content-between flex-warp flex-column"
           }
         >
           <Nav className="flex-column text-white w-100 p-2">
@@ -125,12 +122,12 @@ function App() {
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
-                <LinkContainer
-                  to={`/search?category=${category}`}
+                <Link
+                  to={{ pathname: "/search", search: `category=${category}` }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category}</Nav.Link>
-                </LinkContainer>
+                  <div className="nav-link">{category}</div>
+                </Link>
               </Nav.Item>
             ))}
           </Nav>
