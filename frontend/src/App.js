@@ -17,6 +17,7 @@ import SignupScreen from "./screens/SignupScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import SearchScreen from "./screens/SearchScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import ProfileScreen from "./screens/ProfileScreen.js";
@@ -139,6 +140,7 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />}></Route>
               <Route path="/cart" element={<CartScreen />}></Route>
+              <Route path="/search" element={<SearchScreen />}></Route>
               <Route path="/signin" element={<SigninScreen />}></Route>
               <Route path="/signup" element={<SignupScreen />}></Route>
               <Route path="/profile" element={<ProfileScreen />}></Route>
