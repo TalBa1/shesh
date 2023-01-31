@@ -1,7 +1,7 @@
 import express from "express";
 import Product from "../models/productModel.js";
 import expressAsyncHandler from "express-async-handler";
-
+import { isAuth, isAdmin } from "../utils.js";
 const productRouter = express.Router();
 
 productRouter.get("/", async (req, res) => {
@@ -10,6 +10,28 @@ productRouter.get("/", async (req, res) => {
 });
 
 const PAGE_SIZE = 3;
+
+productRouter.get(
+  "/admin",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const { query } = req;
+    const page = query.page || 1;
+    const pageSize = query.pageSize || PAGE_SIZE;
+
+    const products = await Product.find()
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    const countProducts = await Product.countDocuments();
+    res.send({
+      products,
+      countProducts,
+      page,
+      pages: Math.ceil(countProducts / pageSize),
+    });
+  })
+);
 productRouter.get(
   "/search",
   expressAsyncHandler(async (req, res) => {
@@ -17,11 +39,10 @@ productRouter.get(
     const pageSize = query.pageSize || PAGE_SIZE;
     const page = query.page || 1;
     const category = query.category || "";
-    const brand = query.brand || "";
     const price = query.price || "";
     const rating = query.rating || "";
     const order = query.order || "";
-    const searchQuery = query.searchQuery || "";
+    const searchQuery = query.query || "";
 
     const queryFilter =
       searchQuery && searchQuery !== "all"
@@ -33,7 +54,6 @@ productRouter.get(
           }
         : {};
     const categoryFilter = category && category !== "all" ? { category } : {};
-
     const ratingFilter =
       rating && rating !== "all"
         ? {
@@ -42,26 +62,25 @@ productRouter.get(
             },
           }
         : {};
-
     const priceFilter =
       price && price !== "all"
         ? {
+            // 1-50
             price: {
               $gte: Number(price.split("-")[0]),
               $lte: Number(price.split("-")[1]),
             },
           }
         : {};
-
     const sortOrder =
       order === "featured"
         ? { featured: -1 }
         : order === "lowest"
-        ? { featured: 1 }
+        ? { price: 1 }
         : order === "highest"
-        ? { featured: -1 }
+        ? { price: -1 }
         : order === "toprated"
-        ? { featured: -1 }
+        ? { rating: -1 }
         : order === "newest"
         ? { createdAt: -1 }
         : { _id: -1 };
