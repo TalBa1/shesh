@@ -181,3 +181,19 @@
     1. show delete button
     2. implement backend api
     3. handle on click
+44. List Orders
+    1. create order list screen
+    2. implement backen api
+    3. fetch and display orders
+45. Deliver Order
+    1. add deliver button
+    2. handle click action
+    3. implement backen api for deliver
+46. Delete Order
+    1. add delete button
+    2. handle click action
+    3. implement backen api for delete
+47. List Users
+    1. create user list screen
+    2. implement backen api
+    3. fetch and display users

@@ -71,7 +71,7 @@ export default function SignupScreen() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="password1">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -79,7 +79,7 @@ export default function SignupScreen() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="password2">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"

@@ -134,7 +134,6 @@ export default function ProductListScreen() {
 
   return (
     <div>
-      <h1>Products</h1>
       <Row>
         <Col>
           <h1>Products</h1>
