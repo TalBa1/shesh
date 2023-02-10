@@ -71,4 +71,18 @@ const data = {
   ],
 };
 
+/*
+JWT_SECRET=veryveryverysecret32123
+MONGODB_URI=mongodb+srv://amazona:Zafer123@cluster0.8zf3hij.mongodb.net/amazona?retryWrites=true&w=majority
+PAYPAL_CLIENT_ID=AdqCBCJftJLNjp2AqG6HyRZ4bqjUFdCIJPLDdmuUfPJOFFDFHGEK8RcL8bQCdFOPtTBo-EgzxrdX8oG_ 
+CLOUDINARY_CLOUD_NAME=ddcvpsdkc
+CLOUDINARY_API_KEY=351523322863511
+CLOUDINARY_URL=cloudinary://351523322863511:PmOFkMGCpndIChO8JH8gvsKM4-U@ddcvpsdkc
+CLOUDINARY_API_SECRET=PmOFkMGCpndIChO8JH8gvsKM4-U
+GOOGLE_API_KEY=AIzaSyCG3FfhRyZ6lJpEJrUIMqPFGeH0rykNrJk
+MAILGUN_DOMIAN=sandboxea2f7c6e394648e9b817e77b3ff7fe93.mailgun.org
+MAILGUN_API_KEY=1fbf0ae6951b37ed672700b231e4c6b8-d1a07e51-abc6ce30
+mongodb+srv://amazona:Zafer123@cluster0.fzdwdpo.mongodb.net/amazona?retryWrites=true&w=majority
+mongodb+srv://amazona:Zafer123@cluster0.8zf3hij.mongodb.net/amazona?retryWrites=true&w=majority
+mongodb://localhost/amazona*/
 export default data;
