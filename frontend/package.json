@@ -27,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:file": "npm run build --file /path/to/package.json"
   },
   "eslintConfig": {
     "extends": [
