@@ -5,6 +5,7 @@ import User from '../models/userModel.js';
 import { isAuth, isAdmin, generateToken } from '../utils.js';
 
 const userRouter = express.Router();
+const saltRounds = 10;
 
 userRouter.get(
   '/',
@@ -115,10 +116,13 @@ userRouter.post(
 userRouter.post(
   '/signup',
   expressAsyncHandler(async (req, res) => {
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password),
+      password: hashedPassword,
     });
     const user = await newUser.save();
     res.send({
