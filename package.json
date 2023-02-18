@@ -40,10 +40,9 @@
     "main": "index.js",
     "scripts": {
       "start": "react-scripts start",
-      "build": "cd frontend && npm run build",
+      "build": "react-scripts build",
       "test": "react-scripts test",
-      "eject": "react-scripts eject",
-      "build:file": "npm run build --file /path/to/package.json"
+      "eject": "react-scripts eject"
     },
     "author": "",
     "license": "ISC",
