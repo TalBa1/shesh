@@ -7,6 +7,10 @@ import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
 
+const path = require('path') 
+
+app.use(express.static(path.join(__dirname, 'build')));
+
 dotenv.config();
 const ObjectId = mongoose.Types.ObjectId;
 
