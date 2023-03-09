@@ -2,6 +2,8 @@
 
 Hello! This is my fullstack e-commerce project.
 
+![sss](https://user-images.githubusercontent.com/69452024/224007596-70bfca61-dd20-4dc6-a0d3-8191ea672e10.png)
+
 If you want to try my project follow my instructions please!
 
 Copy repository and clone it to desktop.
