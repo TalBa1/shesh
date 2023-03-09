@@ -1,6 +1,6 @@
 # shesh
 
-Hello! This is my fullstack e-commerce project. Quick look for my project.
+Hello! This is my fullstack e-commerce project. Quick look for my project User Panel and Admin Panel.
 
 ![sss](https://user-images.githubusercontent.com/69452024/224007596-70bfca61-dd20-4dc6-a0d3-8191ea672e10.png)
 ![ss](https://user-images.githubusercontent.com/69452024/224022178-3878b41f-06c4-413b-aef1-016818e0d7fe.png)
